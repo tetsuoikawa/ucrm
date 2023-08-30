@@ -1,0 +1,61 @@
+<script setup>
+import { Link } from '@inertiajs/inertia-vue3';
+</script>
+
+
+<template>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+
+<button class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold w-32 py-4 hover:text-blue-500 focus:border-red-500">ボタン</button>
+<br>
+<br>
+<input type="text" class="border-2 p-2 focus:outline-none focus:border-red-500">
+<br>
+<br>
+<br>
+<input type="text" class="border-2 p-2 focus:outline-none focus:border-blue-500">
+<br>
+<br>
+<br>
+<input type="text" class="border-2 p-2 focus:outline-none">
+
+<p class="my-8 text-2xl">・透明度 Opacity</p>
+
+<p class="my-8 text-2xl text-slate-500 text-opacity-10">Opacity</p>
+
+<p class="my-8 text-2xl text-red-500 text-opacity-30">Opacity</p>
+
+<p class="my-8 text-2xl text-opacity-10">Opacity</p>
+
+<p class="mt-16 text-blue-400 text-opacity-50">文字の色</p>
+
+  <div class="mt-16 border border-pink-500 border-opacity-20">線の色</div>
+
+  <div class="mt-16 bg-green-400 bg-opacity-20">背景の色</div>
+
+  <p class="my-16 text-2xl">線 boder・divide・ring</p>
+
+  <div class="border-8 border-red-400">線の太さ</div>
+
+  <div class="mt-16 flex justify-around divide-x divide-green-400">
+    <div class="flex-grow text-center">区切り線X方向</div>
+    <div class="flex-grow text-center">区切り線X方向</div>
+    <div class="flex-grow text-center">区切り線X方向</div>
+  </div>
+
+  <div class="mt-16 rounded-full w-24 py-2 bg-indigo-500 text-white text-center">rounded</div>
+  <div class="mt-16 rounded-full w-24 py-9 bg-indigo-500 text-white text-center">rounded</div>
+  
+  <div class="mt-16 rounded-full w-24 py-9 bg-indigo-500 text-white text-center ring-4 ring-indigo-600 ring-offset-4 ring-offset-white">ring</div>
+  <div class="mt-16 rounded-full w-24 py-9 bg-indigo-500 text-white text-center border-8 border-red-400">border</div>
+</body>
+</html>
+</template>
