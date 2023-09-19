@@ -13,6 +13,18 @@ Route::resource('items', ItemController::class)
 ->middleware(['auth', 'verified']);
 
 
+
+
+Route::get('/mh/index', [MhController::class, 'index'])->name('mh.index');
+Route::get('/mh/create', [MhController::class, 'create'])->name('mh.create');
+Route::get('/mh/rank', [MhController::class, 'rank'])->name('mh.rank');
+Route::get('/mh/mypage', [MhController::class, 'mypage'])->name('mh.mypage');
+Route::get('/mh/edit', [MhController::class, 'edit'])->name('mh.edit');
+Route::post('/mh', [MhController::class, 'store'])->name('mh.store');
+Route::get('/mh/modal', [MhController::class, 'modalsample'])->name('mh.modalsample');
+Route::get('/mh/{mh}', [MhController::class, 'show'])->name('mh.show');
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,11 +84,6 @@ Route::delete('/inertia/{id}', [InertiaTestController::class, 'delete'])->name('
 
 
 
-Route::get('/mh/index', [MhController::class, 'index'])->name('mh.index');
-Route::get('/mh/create', [MhController::class, 'create'])->name('mh.create');
-Route::get('/mh/rank', [MhController::class, 'rank'])->name('mh.rank');
-Route::get('/mh/mypage', [MhController::class, 'mypage'])->name('mh.mypage');
-Route::post('/mh', [MhController::class, 'store'])->name('mh.store');
 
 
 

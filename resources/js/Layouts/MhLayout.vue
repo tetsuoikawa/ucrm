@@ -12,7 +12,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100" style="min-height: 0vh;">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,24 +22,20 @@ const showingNavigationDropdown = ref(false);
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
                                     <ApplicationLogo
-                                        class="block w-12"
+                                        class="block w-14"
                                     />
                                 </Link>
                             </div>
-
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('mh.index')" :active="route().current('mh.index')">
+                                    Topページ
+                                </NavLink>
                                 <NavLink :href="route('mh.create')" :active="route().current('mh.create')">
-                                    新規投稿
+                                    新規登録
                                 </NavLink>
                                 <NavLink :href="route('mh.rank')" :active="route().current('mh.rank')">
                                     ランキング
-                                </NavLink>
-                                <NavLink :href="route('items.index')" :active="route().current('items.index')">
-                                    ログイン
-                                </NavLink>
-                                <NavLink :href="route('items.index')" :active="route().current('items.index')">
-                                    ユーザー登録
                                 </NavLink>
                                 <NavLink :href="route('mh.mypage')" :active="route().current('mh.mypage')">
                                     マイページ
@@ -86,7 +82,8 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="-mr-2 flex items-center sm:hidden">
+                        <div class="-mr-0 flex items-center sm:hidden">
+
                             <button
                                 @click="showingNavigationDropdown = !showingNavigationDropdown"
                                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
@@ -125,10 +122,13 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                            Topページ
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('items.index')">
-                            商品管理
+                            新規投稿
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('items.index')">
+                            ログイン/ユーザー登録
                         </ResponsiveNavLink>
                     </div>
 

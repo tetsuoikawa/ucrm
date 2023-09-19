@@ -1,44 +1,22 @@
 <script setup>
-
+import MhLayout from '@/Layouts/MhLayout.vue';
 </script>
 
 <template>
+<Head title="Mypage" />
+<MhLayout></MhLayout>
 
-
-
-
-<header class="text-gray-600 body-font" style="background-color: black;">
-
-  
-  
-
-<div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-black rounded-full" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-      </svg>
-      <span class="ml-3 text-2xl text-white">MH重ね着投稿サイト</span>
-    </a>
-    <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-6 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 pl-6 text-white   text-lg">新規投稿</a>
-      <a class="mr-5 pl-6 text-white font-'ヒラギノ角ゴシック'">ランキング</a>
-      <a class="mr-5 pl-6 text-white">ログイン</a>
-      <a class="mr-5 pl-6 text-white">ユーザー登録</a>
-    </nav>
-</div>
-</header>
 
 
 
 <section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto flex flex-col">
-      <div class="lg:w-5/6 mx-auto">
-        <div class="flex flex-col sm:flex-row mt-0">
-          <div class="sm:w-3/5 text-center sm:pr-8 sm:py-8">
-
-            <div class="flex flex-col text-center w-full mb-8">
-                <h1 class=" sm:text-4xl text-2xl font-medium title-font mb-4 text-gray-900 font-'ヒラギノ角ゴシック'">ユーザーランキングaaa</h1>
-              </div>
+  <div class="container px-5 py-24 mx-auto flex flex-col">
+    <div class="lg:w-5/6 mx-auto">
+      <div class="flex flex-col sm:flex-row mt-0">
+        <div class="sm:w-3/5 text-center sm:pr-8 sm:py-8">
+          <div class="flex flex-col text-center w-full mb-8">
+              <h1 class=" sm:text-4xl text-2xl font-medium title-font mb-4 text-gray-900 font-'ヒラギノ角ゴシック'">ユーザーランキング</h1>
+          </div>
 
 <span class="flex justify-center border-space-x-px overflow-hidden rounded-md mb-8">
 
@@ -53,200 +31,196 @@
 
 
 
-            <div class="flex flex-col items-center text-center justify-center">
+<div class="flex flex-col items-center text-center justify-center">
 
-              <table class="min-w-full divide-y-2 divide-gray-500 bg-white text-sm">
-                <thead class="ltr:text-left rtl:text-right bg-white">
-                  <tr>
-                    <th class="w-1/12 whitespace-nowrap px-6 py-2 font-medium text-gray-900">
-                      Rank
-                    </th>
-                    <th class=" w-1/6 whitespace-nowrap px-8 py-2 font-medium text-gray-900 text-left">
-                      Name
-                    </th>
-                    <th class=" whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-right pr-28">
-                      Rank Score
-                    </th>
-                  </tr>
-                </thead>
+  <table class="min-w-full divide-y-2 divide-gray-500 bg-white text-sm">
+    <thead class="ltr:text-left rtl:text-right bg-white">
+      <tr>
+        <th class="w-1/12 whitespace-nowrap px-6 py-2 font-medium text-gray-900">
+          Rank
+        </th>
+        <th class=" w-1/6 whitespace-nowrap px-8 py-2 font-medium text-gray-900 text-left">
+          Name
+        </th>
+        <th class=" whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-right pr-28">
+          Rank Score
+        </th>
+      </tr>
+    </thead>
             
-                <tbody class="divide-y divide-gray-200">
-                  <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #1
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-                  <tr class="odd:bg-blue-500 text-center ">
-                    <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
-                      #2
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
-                  </tr>
+    <tbody class="divide-y divide-gray-200">
+      <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #1
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-blue-500 text-center ">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
+          #2
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
+      </tr>
             
-                  <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #3
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-                  <tr class="odd:bg-gray-500 text-center ">
-                      <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
-                        #4
-                      </td>
-                      <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
-                      <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
-                    </tr>
-                    <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #5
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-                  <tr class="odd:bg-gray-500 text-center">
-                      <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
-                        #6
-                      </td>
-                      <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
-                      <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
-                  </tr>
-                  <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                      <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                        #7
-                      </td>
-                      <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                      <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                    </tr>
+      <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #3
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-gray-500 text-center ">
+          <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
+            #4
+          </td>
+          <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
+          <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
+        </tr>
+        <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #5
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-gray-500 text-center">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
+          #6
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
+      </tr>
+      <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #7
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-blue-500 text-center ">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
+          #8
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
+      </tr>
               
-                    <tr class="odd:bg-blue-500 text-center ">
-                      <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
-                        #8
-                      </td>
-                      <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
-                      <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
-                    </tr>
-              
-                    <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #9
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-                    <tr class="odd:bg-gray-500 text-center ">
-                        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
-                          #10
-                        </td>
-                        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
-                        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
-                      </tr>
+      <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #9
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-gray-500 text-center ">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
+          #10
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
+      </tr>
+      <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #11
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-gray-500 text-center">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
+          #12
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
+      </tr>
+      <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #13
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+            
+      <tr class="odd:bg-blue-500 text-center ">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
+          #14
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
+      </tr>
+      <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #15
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-gray-500 text-center ">
+          <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
+            #16
+          </td>
+          <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
+          <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
+        </tr>
+        <tr class="odd:bg-gray-50 text-center bg-gray-50">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #17
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>
+      <tr class="odd:bg-gray-500 text-center">
+          <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
+            #18
+          </td>
+          <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
+          <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
+      </tr>
                       <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #11
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-                    <tr class="odd:bg-gray-500 text-center">
-                        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
-                          #12
-                        </td>
-                        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
-                        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
-                    </tr>
-                                      <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #13
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-            
-                  <tr class="odd:bg-blue-500 text-center ">
-                    <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
-                      #14
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
-                  </tr>
-                  <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #15
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-                  <tr class="odd:bg-gray-500 text-center ">
-                      <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
-                        #16
-                      </td>
-                      <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
-                      <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
-                    </tr>
-                    <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #17
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-                  <tr class="odd:bg-gray-500 text-center">
-                      <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
-                        #18
-                      </td>
-                      <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Gary Barlow</td>
-                      <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">123864</td>
-                  </tr>
-                                  <tr class="odd:bg-gray-50 text-center bg-gray-50">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      #19
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
-                  </tr>
-            
-                  <tr class="odd:bg-blue-500 text-center ">
-                    <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
-                      #20
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
-                  </tr>
-            
-
-                  <tr>
-                    <td></td>
-                    <td class="text-center py-4"><h1>・<br>・<br>・</h1></td>
-                    <td></td>
-                  </tr>
-                  <tr class="odd:bg-gray-500 text-center bg-green-50">
-                    <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
-                      #143
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">my name</td>
-                    <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">431</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="sm:w-2/5 sm:pl-8 sm:pt-32 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-            <img class=" mt-28 xl:w-full  block mx-auto mb-10 object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
-            <img class="xl:w-full  block mx-auto mb-10 object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
-            <p class="leading-relaxed text-lg mb-4">Meggings portland fingerstache lyft, post-ironic fixie man bun banh mi umami everyday carry hexagon locavore direct trade art party. Locavore small batch listicle gastropub farm-to-table lumbersexual salvia messenger bag. Coloring book flannel truffaut craft beer drinking vinegar sartorial, disrupt fashion axe normcore meh butcher. Portland 90's scenester vexillologist forage post-ironic asymmetrical, chartreuse disrupt butcher paleo intelligentsia pabst before they sold out four loko. 3 wolf moon brooklyn.</p>
-            <a class="text-indigo-500 inline-flex items-center">Learn More
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          #19
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Developer</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">158745</td>
+      </tr>           
+      <tr class="odd:bg-blue-500 text-center ">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900">
+          #20
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">Jane Doe</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">143874</td>
+      </tr>            
+      <tr>
+        <td></td>
+        <td class="text-center py-4"><h1>・<br>・<br>・</h1></td>
+        <td></td>
+      </tr>
+      <tr class="odd:bg-gray-500 text-center bg-green-50">
+        <td class="whitespace-nowrap px-4 py-4 font-medium text-gray-900 ">
+          #143
+        </td>
+        <td class="whitespace-nowrap px-6 py-4 text-gray-700 text-left">my name</td>
+        <td class="whitespace-nowrap px-4 py-4 text-gray-700 text-right pr-28">431</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+  <div class="sm:w-2/5 sm:pl-8 sm:pt-32 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+    <img class=" mt-28 xl:w-full  block mx-auto mb-10 object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+    <img class="xl:w-full  block mx-auto mb-10 object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+    <p class="leading-relaxed text-lg mb-4">Meggings portland fingerstache lyft, post-ironic fixie man bun banh mi umami everyday carry hexagon locavore direct trade art party. Locavore small batch listicle gastropub farm-to-table lumbersexual salvia messenger bag. Coloring book flannel truffaut craft beer drinking vinegar sartorial, disrupt fashion axe normcore meh butcher. Portland 90's scenester vexillologist forage post-ironic asymmetrical, chartreuse disrupt butcher paleo intelligentsia pabst before they sold out four loko. 3 wolf moon brooklyn.</p>
+    <a class="text-indigo-500 inline-flex items-center">Learn More
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+  </div>
+  </div>
+  </div>
     <footer class="text-gray-600 body-font">
       <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
         <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
@@ -284,17 +258,5 @@
         </span>
       </div>
     </footer>
-
-
-
   </section>
-
-
-
-
-
-
-
-
-
 </template>

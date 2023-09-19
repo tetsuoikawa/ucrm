@@ -16,7 +16,12 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Items/Index');
+        $items = Item::select('id', 'name', 'price' , 'is_selling')->get();
+        return Inertia::render('Items/Index' ,[
+            'items' => $items
+        ]);
+
+        
     }
 
     /**
@@ -27,6 +32,7 @@ class ItemController extends Controller
     public function create()
     {
         //
+        return Inertia::render('Items/Create');
     }
 
     /**
@@ -37,7 +43,14 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        //
+        
+        Item::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'memo' => $request->memo,
+        ]);
+
+        return to_route('items.index');
     }
 
     /**
@@ -48,7 +61,9 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return Inertia::render('Items/Show', [
+            'item' => $item
+        ]);
     }
 
     /**

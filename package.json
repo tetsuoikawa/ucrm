@@ -20,6 +20,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "@inertiajs/progress": "^0.2.7"
+        "@inertiajs/progress": "^0.2.7",
+        "micromodal": "^0.4.10"
     }
 }

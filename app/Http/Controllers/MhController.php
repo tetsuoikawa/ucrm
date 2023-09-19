@@ -17,7 +17,12 @@ class MhController extends Controller
      */
     public function index()
     {
-        return Inertia::render('mh/index');
+        $posts = post::select('id', 'title', 'series', 'gender', 'head',
+                              'shoulder', 'arm', 'waist', 'leg', 'contact')->get();
+
+        return Inertia::render('mh/index' , [
+            'posts' => $posts
+        ]);
     }
 
     /**
@@ -39,22 +44,38 @@ class MhController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-
-
-
+        
+        if($request->title !== null){
+            $request->title == 'if成功';
+        };
         $request->validate([ 
-            'title' => ['required', 'max:20'], 
-            'content' => ['required'], 
+            'title' => ['required', 'max:25'],  
+            'series' => ['required'], 
+            'gender' => ['required'], 
+            'head' => ['required' , 'max:30'], 
+            'shoulder' => ['required' , 'max:30'],
+            'arm' => ['required' , 'max:30'],
+            'waist' => ['required' , 'max:30'],
+            'leg' => ['required' , 'max:30'],
+            'content' => ['max:100'],
             ]);
 
         $post = new post;
 
         $post->title = $request->title;
         $post->contact = $request->content;
+        $post->series = $request->series;
+        $post->gender = $request->gender;
+        $post->username = $request->username;
+        $post->head = $request->head;
+        $post->shoulder = $request->shoulder;
+        $post->arm = $request->arm;
+        $post->waist = $request->waist;
+        $post->leg = $request->leg;
 
         $post->save();
 
-        return to_route('mh.create')->with([
+        return to_route('mh.index')->with([
 
             'complete' => '登録しました'
 
@@ -70,7 +91,8 @@ class MhController extends Controller
      */
     public function show(post $mh)
     {
-        //
+        $a = "aa";
+        dd($a);
     }
 
     /**
@@ -82,6 +104,10 @@ class MhController extends Controller
     public function edit(post $mh)
     {
         //
+        dd($mh);
+        return Inertia::render('mh/mypage', [
+            'item' => $mh
+        ]);
     }
 
     /**
@@ -113,7 +139,21 @@ class MhController extends Controller
     public function mypage()
     {
         //
-        return Inertia::render('mh/mypage');
+        $posts = post::select('id', 'title', 'series', 'gender', 'head',
+                              'shoulder', 'arm', 'waist', 'leg', 'contact')->get();
+
+        return Inertia::render('mh/mypage' , [
+            'posts' => $posts
+        ]);
 
     }
+
+    public function modalsample()
+    {
+        //
+        return Inertia::render('mh/modalsample');
+
+    }
+
+    
 }

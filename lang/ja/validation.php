@@ -81,7 +81,7 @@ return [
     'max'                  => [
         'numeric' => ':attributeには、:max以下の数字を指定してください。',
         'file'    => ':attributeには、:max kB以下のファイルを指定してください。',
-        'string'  => ':attributeは、:max文字以下で指定してください。',
+        'string'  => ':attributeは、:max文字以下で記入してください。',
         'array'   => ':attributeは:max個以下指定してください。',
     ],
     'mimes'                => ':attributeには:valuesタイプのファイルを指定してください。',
@@ -99,7 +99,7 @@ return [
     'password'             => '正しいパスワードを指定してください。',
     'present'              => ':attributeが存在していません。',
     'regex'                => ':attributeに正しい形式を指定してください。',
-    'required'             => ':attributeは必ず指定してください。',
+    'required'             => ':attributeは必須です。',
     'required_if'          => ':otherが:valueの場合、:attributeも指定してください。',
     'required_unless'      => ':otherが:valuesでない場合、:attributeを指定してください。',
     'required_with'        => ':valuesを指定する場合は、:attributeも指定してください。',
@@ -153,6 +153,15 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+       'title' => '作品名',  
+       'series' => 'シリーズ',
+       'gender' => '性別',
+       'head' => '頭',
+       'shoulder' => '胴',
+       'arm' => '手',
+       'waist' => '腰',
+       'leg' => '足',    
+    ],
 
 ];
