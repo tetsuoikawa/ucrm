@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\post;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 // use App\Http\Requests\StoremhRequest;
-// use App\Http\Requests\UpdatemhRequest;
+use App\Http\Requests\UpdatemhRequest;
 
 class MhController extends Controller
 {
@@ -92,6 +91,7 @@ class MhController extends Controller
     public function show(post $mh)
     {
 
+
         return Inertia::render('mh/Show', [
             'post' => $mh
         ]);
@@ -109,6 +109,11 @@ class MhController extends Controller
         return Inertia::render('mh/Edit', [
             'post' => $mh
         ]);
+    }
+
+    public function update(UpdatemhRequest $request, post $mh)
+    {
+        dd($mh->name , $request->name);
     }
 
     /**

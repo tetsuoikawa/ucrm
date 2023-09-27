@@ -13,7 +13,7 @@ class UpdatemhRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class UpdatemhRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['required', 'max:25'],  
+            'series' => ['required'], 
+            'gender' => ['required'], 
+            'head' => ['required' , 'max:30'], 
+            'shoulder' => ['required' , 'max:30'],
+            'arm' => ['required' , 'max:30'],
+            'waist' => ['required' , 'max:30'],
+            'leg' => ['required' , 'max:30'],
+            'content' => ['max:100'],
         ];
     }
 }

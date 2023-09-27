@@ -14,7 +14,6 @@ Route::resource('items', ItemController::class)
 
 
 
-
 Route::get('/mh/index', [MhController::class, 'index'])->name('mh.index');
 Route::get('/mh/create', [MhController::class, 'create'])->name('mh.create');
 Route::get('/mh/rank', [MhController::class, 'rank'])->name('mh.rank');
@@ -22,8 +21,9 @@ Route::get('/mh/mypage', [MhController::class, 'mypage'])->name('mh.mypage');
 Route::get('/mh/edit', [MhController::class, 'edit'])->name('mh.edit');
 Route::post('/mh', [MhController::class, 'store'])->name('mh.store');
 Route::get('/mh/modal', [MhController::class, 'modalsample'])->name('mh.modalsample');
+Route::put('/mh/{mh}', [MhController::class, 'update'])->name('mh.update');
 Route::get('/mh/{mh}', [MhController::class, 'show'])->name('mh.show');
-
+Route::get('/mh/{mh}/edit', [MhController::class, 'edit'])->name('mh.edit');
 
 /*
 |--------------------------------------------------------------------------
