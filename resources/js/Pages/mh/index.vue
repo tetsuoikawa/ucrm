@@ -2,6 +2,7 @@
 import MhLayout from '@/Layouts/MhLayout.vue';
 import MicroModal from '@/Components/MicroModal.vue';
 import { nl2br } from '@/common';
+import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
   posts: Array

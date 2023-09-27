@@ -91,8 +91,10 @@ class MhController extends Controller
      */
     public function show(post $mh)
     {
-        $a = "aa";
-        dd($a);
+
+        return Inertia::render('mh/Show', [
+            'post' => $mh
+        ]);
     }
 
     /**
@@ -104,9 +106,8 @@ class MhController extends Controller
     public function edit(post $mh)
     {
         //
-        dd($mh);
-        return Inertia::render('mh/mypage', [
-            'item' => $mh
+        return Inertia::render('mh/Edit', [
+            'post' => $mh
         ]);
     }
 
@@ -154,6 +155,8 @@ class MhController extends Controller
         return Inertia::render('mh/modalsample');
 
     }
+
+
 
     
 }

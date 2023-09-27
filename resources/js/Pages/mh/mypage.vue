@@ -89,8 +89,11 @@ defineProps({
                       <span style="font-size: 20px;">27</span>
                       <span style="font-size: 16px;">pt</span>
                       <div v-for="post in posts" :key="post.id">
-                        <Link class="text-blue-400" :href="route('mh.show', { mh: post.id })">
-                          {{ post.id }}
+                        <Link class="my-8 text-blue-400" :href="route('mh.show', { mh: post.id })">
+                          show:{{ post.id }}<br>
+                        </Link>
+                        <Link class="text-blue-400" :href="route('mh.edit', { mh: post.id })">
+                          edit:{{ post.id }}<br>
                         </Link>
                         
                       </div>
@@ -135,7 +138,7 @@ defineProps({
       </ul>
     </div>
   </section>
-  <div v-for="post in posts">
+<div v-for="post in posts">
   <MicroModal />
 </div>
   <br>
