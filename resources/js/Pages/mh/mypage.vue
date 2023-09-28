@@ -94,8 +94,7 @@ defineProps({
                         </Link>
                         <Link class="text-blue-400" :href="route('mh.edit', { mh: post.id })">
                           edit:{{ post.id }}<br>
-                        </Link>
-                        
+                        </Link>                     
                       </div>
                       
                       

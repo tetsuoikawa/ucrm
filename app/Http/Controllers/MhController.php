@@ -44,9 +44,6 @@ class MhController extends Controller
      */
     public function store(Request $request){
         
-        if($request->title !== null){
-            $request->title == 'if成功';
-        };
         $request->validate([ 
             'title' => ['required', 'max:25'],  
             'series' => ['required'], 
@@ -90,8 +87,6 @@ class MhController extends Controller
      */
     public function show(post $mh)
     {
-
-
         return Inertia::render('mh/Show', [
             'post' => $mh
         ]);
@@ -113,7 +108,22 @@ class MhController extends Controller
 
     public function update(UpdatemhRequest $request, post $mh)
     {
-        dd($mh->name , $request->name);
+        $mh->title = $request->title;
+        $mh->contact = $request->contact;
+        $mh->series = $request->series;
+        $mh->gender = $request->gender;
+        $mh->username = $request->username;
+        $mh->head = $request->head;
+        $mh->shoulder = $request->shoulder;
+        $mh->arm = $request->arm;       
+        $mh->waist = $request->waist;
+        $mh->leg = $request->leg;
+        $mh->save();
+
+        return to_route('mh.mypage')->with([
+            'message' => '更新しました',
+            'status' => 'success',
+        ]);
     }
 
     /**

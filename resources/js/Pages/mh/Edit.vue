@@ -23,7 +23,7 @@ const form = reactive({
 })
 
 const updateProps = id => {
-    Inertia.put(route('mh.update', { post: id }) , form)
+    Inertia.put(route('mh.update', { mh: id }) , form)
 }
 </script>
 

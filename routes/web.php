@@ -23,6 +23,7 @@ Route::post('/mh', [MhController::class, 'store'])->name('mh.store');
 Route::get('/mh/modal', [MhController::class, 'modalsample'])->name('mh.modalsample');
 Route::put('/mh/{mh}', [MhController::class, 'update'])->name('mh.update');
 Route::get('/mh/{mh}', [MhController::class, 'show'])->name('mh.show');
+Route::delete('/mh/{mh}', [MhController::class, 'destory'])->name('mh.destory');
 Route::get('/mh/{mh}/edit', [MhController::class, 'edit'])->name('mh.edit');
 
 /*
