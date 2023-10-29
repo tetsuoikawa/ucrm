@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -15,8 +17,18 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::searchCustomers($request->search)
+        ->select('id', 'name', 'kana', 'tel')->paginate(40);
+        //$getTest = Customer::select('id', 'name', 'kana', 'tel')->get();
+        //$getPaginate = Customer::select('id', 'name', 'kana', 'tel')->paginate(40);
+        //dd($getTest, $getPaginate);
+
+        return Inertia::render('Customers/Index', [
+            'customers' => $customers
+        ]);
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -26,6 +38,7 @@ class CustomerController extends Controller
     public function create()
     {
         //
+        return Inertia::render('Customers/Create');
     }
 
     /**

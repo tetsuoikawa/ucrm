@@ -1,11 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\post;
+use App\Models\User;
+use App\Models\Like;
+use App\Models\comment;
+use App\Models\Follow;
+use App\Models\Searchpost;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 // use App\Http\Requests\StoremhRequest;
 use App\Http\Requests\UpdatemhRequest;
+use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MhController extends Controller
 {
@@ -16,12 +24,60 @@ class MhController extends Controller
      */
     public function index()
     {
+
+        if( Auth::user() == null){
+            $username = '名無しのユーザー';
+        }else{
+            $username = Auth::user()->name;
+        }
+        
+
         $posts = post::select('id', 'title', 'series', 'gender', 'head',
-                              'shoulder', 'arm', 'waist', 'leg', 'contact')->get();
+                              'shoulder', 'arm', 'waist', 'leg', 'contact')->paginate(30);
+
+
+                              
+
+        $sums = $posts->total();              
 
         return Inertia::render('mh/index' , [
-            'posts' => $posts
+            'posts' => $posts,
+            'totals' => $sums,
+            'username' => $username,
         ]);
+
+    }
+
+    public function search(Request $request)
+    { 
+        $points = User::upoint('名無しのユーザー');
+        dd($points);
+
+    if( Auth::user() == null){
+        $username = '名無しのユーザー';
+    }else{
+        $username = Auth::user()->name;
+        $userid = Auth::user()->id;
+
+        $follow = Follow::select('followerid')
+        ->where('followid', '=', $userid)->paginate(3000000);
+        //こうすると、IDを取得できる　$follow[0]->followerid
+    }
+
+    $posts = post::searchposts($request->search , $request->searchgender, $request->searchseries, $follow )
+    ->select('id', 'title', 'series', 'gender', 'head',
+    'shoulder', 'arm', 'waist', 'leg', 'contact')->paginate(30);
+
+    $sum = $posts->total();
+
+
+    return Inertia::render('mh/index' , [
+      'posts' => $posts, 
+      'totals' => $sum,
+      'username' => $username,
+      'follow' => $username,
+    ]);
+
     }
 
     /**
@@ -31,9 +87,16 @@ class MhController extends Controller
      */
     public function create()
     {
-        //
-        https://www.bing.com/ck/a?!&&p=1e44bdfa01e6abd7JmltdHM9MTY4NDcxMzYwMCZpZ3VpZD0wZmZkYmZlOC1jZThjLTYyNjMtMjQzZS1hZTljY2Y2NjYzNTImaW5zaWQ9NTI5OA&ptn=3&hsh=3&fclid=0ffdbfe8-ce8c-6263-243e-ae9ccf666352&u=a1L3ZpZGVvcy9yaXZlcnZpZXcvcmVsYXRlZHZpZGVvP3E9JWUzJTgyJWE4JWUzJTgzJTlhK0FMR1MlZTMlODMlOTAlZTMlODMlODMlZTMlODMlODEmcXM9biZzcD0tMSZscT0wJnBxPSVlMyU4MiVhOCVlMyU4MyU5YSthbGdzJWUzJTgzJTkwJWUzJTgzJTgzJWUzJTgzJTgxJnNjPTEtMTAmc2s9JmN2aWQ9MDYzQ0RCRDI4NkZGNDI0MkFGNjM3NzgxQTY4NDMzMzgmZ2hzaD0wJmdoYWNjPTAmZ2hwbD0mYWRsdD1zdHJpY3QmdG9Xd3c9MSZyZWRpZz02MDhCQ0Q2QUY2Mzc0QzhCQkRFNTBBODYwNUEyMTQ2QSZydT0lMmZzZWFyY2glM2ZxJTNkJTI1RTMlMjU4MiUyNUE4JTI1RTMlMjU4MyUyNTlBJTJiQUxHUyUyNUUzJTI1ODMlMjU5MCUyNUUzJTI1ODMlMjU4MyUyNUUzJTI1ODMlMjU4MSUyNnFzJTNkbiUyNmZvcm0lM2RRQlJFJTI2c3AlM2QtMSUyNmxxJTNkMCUyNnBxJTNkJTI1RTMlMjU4MiUyNUE4JTI1RTMlMjU4MyUyNTlBJTJiYWxncyUyNUUzJTI1ODMlMjU5MCUyNUUzJTI1ODMlMjU4MyUyNUUzJTI1ODMlMjU4MSUyNnNjJTNkMS0xMCUyNnNrJTNkJTI2Y3ZpZCUzZDA2M0NEQkQyODZGRjQyNDJBRjYzNzc4MUE2ODQzMzM4JTI2Z2hzaCUzZDAlMjZnaGFjYyUzZDAlMjZnaHBsJTNkJTI2YWRsdCUzZHN0cmljdCUyNnRvV3d3JTNkMSUyNnJlZGlnJTNkNjA4QkNENkFGNjM3NEM4QkJERTUwQTg2MDVBMjE0NkEmbW1zY249dndyYyZtaWQ9NUVGMUIzRUM2QTVBMjNGNTE2NjI1RUYxQjNFQzZBNUEyM0Y1MTY2MiZGT1JNPVdSVk9SQw&ntb=1
-        return Inertia::render('mh/Create');
+        if( Auth::user() == null){
+            $username = '名無しのユーザー';
+        }else{
+            $username = Auth::user()->name;
+        }
+        
+
+        return Inertia::render('mh/Create' ,[
+            'username' => $username,
+        ]);
     }
 
     /**
@@ -43,6 +106,7 @@ class MhController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+
         
         $request->validate([ 
             'title' => ['required', 'max:25'],  
@@ -58,18 +122,23 @@ class MhController extends Controller
 
         $post = new post;
 
+        if( Auth::user()->name !== null){
+            $post->userid = Auth::user()->id;
+        }
+        $a = 7;
+        $posts = $post::find($a);
+        dd($posts);
         $post->title = $request->title;
         $post->contact = $request->content;
         $post->series = $request->series;
         $post->gender = $request->gender;
-        $post->username = $request->username;
         $post->head = $request->head;
         $post->shoulder = $request->shoulder;
         $post->arm = $request->arm;
         $post->waist = $request->waist;
         $post->leg = $request->leg;
-
         $post->save();
+
 
         return to_route('mh.index')->with([
 
@@ -87,8 +156,46 @@ class MhController extends Controller
      */
     public function show(post $mh)
     {
+        $click = True;
+        $number = $mh->id;
+        $like = Like::select('id', 'userid', 'likearticle')->where('likearticle', '=',  $number)->paginate(10000000);
+        $username = User::select()->paginate(10000000);
+        $name = User::select('name')->where('id', '=',  $mh->userid)->paginate(10000);
+        $hostname =  $name[0]->name;
+        $hostid = $mh->userid;
+        $total = post::select('id')->paginate(100000000);
+        $comment = comment::select('id', 'userid', 'username', 'articleid', 'comment', 'created_at')->where('articleid', '=',  $number)->orderBy('id', 'desc')->paginate(30);
+        $articleid = null;
+        
+
+        if( Auth::user() == null){
+            $nowuser = '名無しのユーザー';
+            $userid = null;
+            $likeuser = 1;
+            $click = False;
+        }else{
+            $nowuser = Auth::user()->name;
+            $userid = Auth::user()->id;
+            $likeuser = Like::select('userid', 'likearticle')->where('userid', '=', Auth::user()->id)->where('likearticle', '=',  $number)->paginate(10000000);
+            
+            if($likeuser->total() !== 0){
+                $click = False;
+            }
+        }
+
+        $articleid = $mh->id;
+
         return Inertia::render('mh/Show', [
-            'post' => $mh
+            'posts' => $mh,
+            'comments' => $comment,
+            'likes' => $like,
+            'userid' => $userid,
+            'click' => $click,
+            'articlenumber' =>  $articleid,
+            'username' =>  $username,
+            'hostname' => $hostname,
+            'hostid' => $hostid,
+            'nowuser' => $nowuser,
         ]);
     }
 
@@ -100,10 +207,14 @@ class MhController extends Controller
      */
     public function edit(post $mh)
     {
-        //
-        return Inertia::render('mh/Edit', [
-            'post' => $mh
-        ]);
+        $userid = Auth::user()->id;
+        if($userid == $mh->userid){
+            return Inertia::render('mh/Edit', [
+                'post' => $mh
+            ]);
+        }else{
+            return Inertia::render('mh/index');
+        }
     }
 
     public function update(UpdatemhRequest $request, post $mh)
@@ -112,7 +223,7 @@ class MhController extends Controller
         $mh->contact = $request->contact;
         $mh->series = $request->series;
         $mh->gender = $request->gender;
-        $mh->username = $request->username;
+        $mh->userid = Auth::user()->id;
         $mh->head = $request->head;
         $mh->shoulder = $request->shoulder;
         $mh->arm = $request->arm;       
@@ -120,7 +231,42 @@ class MhController extends Controller
         $mh->leg = $request->leg;
         $mh->save();
 
-        return to_route('mh.mypage')->with([
+        $url = 'http://127.0.0.1:8000/mh/';
+        $url .= $request->id;
+
+        return redirect($url)->with([
+            'message' => '更新しました',
+            'status' => 'success',
+        ]);
+    }
+
+    public function updateuser(UpdateUserRequest $request, User $mh)
+    {
+        $request->validate([ 
+            'name' => ['required', 'max:30'],  
+            'email' => ['required', 'max:50'], 
+            'content' => ['max:100'], 
+            'twitter' => ['max:50'], 
+            'facebook' => ['max:50'],
+            'instagram ' => ['max:50'],
+            ]);
+
+        $userid = Auth::user()->id;
+        $user = user::select('password')->where('id', '=',  $userid)->paginate(3);
+
+        $mh->password = $user[0]->password;
+        $mh->name = $request->name;
+        $mh->email = $request->email;
+        $mh->imageicon = $request->imageicon;
+        $mh->imageheader = $request->header;
+        $mh->content = $request->content;
+        $mh->twitter = $request->twitter;
+        $mh->facebook = $request->facebook;
+        $mh->instagram = $request->instagram;       
+        $mh->save();
+
+
+        return redirect('http://127.0.0.1:8000/mh/mypage')->with([
             'message' => '更新しました',
             'status' => 'success',
         ]);
@@ -140,26 +286,159 @@ class MhController extends Controller
      * @param  \App\Models\mh  $mh
      * @return \Illuminate\Http\Response
      */
-    public function destroy(post $mh)
+    public function destroy(Request $request , post $mh)
     {
         //
+        $deleteid = $request->query("mh");
+
+        $deletecomment = comment::select('id')
+        ->where('articleid', '=',  $deleteid)->paginate(300000);
+
+        $deletelike = like::select('id')
+        ->where('likearticle', '=',  $deleteid)->paginate(300000);
+
+        //記事のコメントも消すシステム
+        for($dnumber = 0; $dnumber < $deletecomment->total(); $dnumber++){
+            comment::destroy($deletecomment[$dnumber]->id);
+        }
+
+        //記事のいいねを消すシステム
+        for($dlike = 0; $dlike < $deletelike->total(); $dlike++){
+            like::destroy($deletelike[$dlike]->id);
+        }
+        post::destroy($deleteid);
+
+        $url = 'http://127.0.0.1:8000/mh/index';
+        return redirect($url);
     }
 
     public function rank()
     {
-        //
-        return Inertia::render('mh/rank');
+        if( Auth::user() == null){
+            $username = '名無しのユーザー';
+        }else{
+            $username = Auth::user()->name;
+        }
+        
+        return Inertia::render('mh/rank' ,[
+            'username' => $username,
+        ]);
 
     }
 
     public function mypage()
     {
         //
-        $posts = post::select('id', 'title', 'series', 'gender', 'head',
-                              'shoulder', 'arm', 'waist', 'leg', 'contact')->get();
+        $userid = Auth::user()->id;
 
+        $username = Auth::user()->name;
+        
+        $posts = post::select('id', 'title', 'series', 'gender', 'head',
+        'shoulder', 'arm', 'waist', 'leg', 'contact', 'userid')
+        ->where('userid', '=',  $userid)->orderBy('id', 'desc')->paginate(30);
+
+        $likes = like::select('id')
+        ->where('userid', '=',  $userid)->orderBy('id', 'desc')->paginate(30);
+
+        $users = User::select('id','name','content','twitter','facebook','instagram')
+        ->where('name', '=',  $username)->orderBy('id', 'desc')->paginate(30);
+
+        $sumarticle = $posts->total();
+        $postpoints  = $posts->total();
+        $likepoints = $likes->total();
+        $total = $postpoints + $likepoints;
+
+        //dd($posts->items()[0]->id);
+
+        $followsum = Follow::select('id')
+        ->where('followid', '=',  $userid)->paginate(30000000);
+
+        $followersum = Follow::select('id')
+        ->where('followerid', '=',  $userid)->paginate(30000000);
+                    
+        
         return Inertia::render('mh/mypage' , [
-            'posts' => $posts
+            'posts' => $posts,
+            'total' => $sumarticle,
+            'points' => $total,
+            'users' => $users,
+            'username' => $username,
+            'followsum' => $followsum->total(),
+            'followersum' => $followersum->total(),
+        ]);
+
+    }
+
+    public function otherpage(Request $request)
+    {
+
+        
+
+        $name = $request->query("username");
+
+        //ログインしていない場合の名前設定
+        $nowname = $request->query("nowname");
+
+        //ログイン している/いない 際のID設定
+        if($nowname !== '名無しのユーザー'){
+            $nowid = Auth::user()->id;
+        }else{
+            //0の場合はログインしていない
+            $nowid = 0;
+        }
+        
+
+        $users = User::select('id','name','content','twitter','facebook','instagram')
+        ->where('name', '=',  $name)->orderBy('id', 'desc')->paginate(30);
+        
+        $userid = $users[0]->id;
+
+        
+        
+        $follows = Follow::select('id','follow','follower','followerid')
+        ->where('followid', '=',  $nowid)->where('followerid', '=',  $userid)->paginate(30);
+
+        $followsum = Follow::select('id')
+        ->where('followid', '=',  $userid)->paginate(30000000);
+
+        $followersum = Follow::select('id')
+        ->where('followerid', '=',  $userid)->paginate(30000000);
+
+        $follow = True;
+        
+        if($follows->total() !== 0){
+            $follow = False;
+        }
+        
+        $posts = post::select('id', 'title', 'series', 'gender', 'head',
+        'shoulder', 'arm', 'waist', 'leg', 'contact', 'userid')
+        ->where('userid', '=',  $userid)->orderBy('id', 'desc')->paginate(30);
+
+        $likes = like::select('id')
+        ->where('getid', '=',  $userid)->orderBy('id', 'desc')->paginate(30);
+
+
+        $sumarticle = $posts->total();
+
+        $postpoints  = $posts->total();
+        $likepoints = $likes->total();
+        $total = $postpoints + $likepoints;
+
+        //dd($posts->items()[0]->id);
+
+                    
+        return Inertia::render('mh/otherpage' , [
+            'posts' => $posts,
+            'total' => $sumarticle,
+            'points' => $total,
+            'users' => $users,
+            'othername' => $name,
+            'nowname' => $nowname,
+            'nowid' => $nowid,
+            'otherid' => $userid,
+            'follow' => $follow,
+            'followsum' => $followsum->total(),
+            'followersum' => $followersum->total(),
         ]);
 
     }
@@ -170,8 +449,71 @@ class MhController extends Controller
         return Inertia::render('mh/modalsample');
 
     }
-
-
-
     
+    public function comment()
+    {
+
+
+        $userid = Auth::user()->id;
+        $username = Auth::user()->name;
+        
+        $posts = post::select('id', 'title', 'series', 'gender', 'head',
+        'shoulder', 'arm', 'waist', 'leg', 'contact', 'userid')->paginate(3000000000);
+
+ 
+        $comments = comment::select('id', 'articleid', 'userid', 'comment', 'updated_at', 'articletitle')->where('userid', '=',  $userid)->orderBy('id', 'desc')->paginate(300000);
+
+        $total = $posts->total();
+
+
+
+        //dd($posts->items()[0]->id);
+                    
+        
+        return Inertia::render('mh/mypage_comment' , [
+            'posts' => $posts,
+            'total' => $total,
+            'comment' => $comments,
+            'username' => $username,
+        ]);
+
+    }
+
+    public function like()
+    {
+
+        $userid = Auth::user()->id;
+        $username = Auth::user()->name;
+        
+        $posts = post::select('id', 'title', 'series', 'gender', 'head',
+        'shoulder', 'arm', 'waist', 'leg', 'contact', 'userid')->paginate(3000000000);
+
+        $likes = like::select('id', 'likearticle', 'updated_at', 'articletitle','userid')
+        ->where('userid', '=',  $userid)->orderBy('id', 'desc')->paginate(300000);
+
+        $total = $posts->total();
+
+        //dd($posts->items()[0]->id);
+        
+        return Inertia::render('mh/mypage_like' , [
+            'posts' => $posts,
+            'total' => $total,
+            'like' => $likes,
+            'username' => $username,
+        ]);
+
+    } 
+
+    public function createuser()
+    {
+
+        $userid = Auth::user()->id;
+
+        $user = user::select('id', 'name', 'email','imageicon', 'imageheader', 'content', 'twitter', 'facebook', 'instagram', 'point')->where('id', '=',  $userid)->paginate(3);
+
+        return Inertia::render('mh/Createuser', [
+            'user' => $user,
+        ]);
+
+    } 
 }

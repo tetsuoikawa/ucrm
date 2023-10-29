@@ -12,7 +12,7 @@ class mh extends Model
     protected $fillable = [
         'id',
         'title',
-        'username',
+        'userid',
         'gender',
         'contact',
         'series',

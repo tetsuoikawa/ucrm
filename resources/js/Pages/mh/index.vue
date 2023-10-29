@@ -1,29 +1,49 @@
 <script setup>
 import MhLayout from '@/Layouts/MhLayout.vue';
-import MicroModal from '@/Components/MicroModal.vue';
+import image3way from '@/Components/image3way.vue';
 import { nl2br } from '@/common';
 import { Head, Link } from '@inertiajs/vue3';
+import Pagination from '@/Components/Pagination.vue';
+import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+import { onMounted } from 'vue';
 
-defineProps({
-  posts: Array
+
+
+
+const props = defineProps({
+  posts: Object,
+  totals: Object,
+  username: Object,
 })
 
 
+onMounted(() => {
+  console.log(props.posts)
+})
 
+
+const search = ref('')
+const searchgender = ref('')
+const searchseries = ref('')
+
+// ref の値を取得するには .valueが必要
+
+const resultposts = () => {
+  Inertia.get(route('mh.search', { search: search.value , searchgender: searchgender.value, searchseries: searchseries.value }))
+}
 </script>
 
-
-
-
 <template>
-  <Head title="Mypage" />
-  <MhLayout></MhLayout>
- 
-  
+<Head title="Mypage" />
+<MhLayout :username="props.username"></MhLayout>  
 
+<p>{{ props.totals }}</p>
 
+<div v-if="$page.props.flash.message" class="bg-blue-300">
+  {{ $page.props.flash.message }}
+  </div>
 
-  
 
 <section class="text-gray-500 body-font">
 <div class="container px-5 py-24 mx-auto">
@@ -39,43 +59,49 @@ defineProps({
   </div>
   <div class="flex lg:w-full w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end" >
     <div class="relative flex-grow w-full">
-      <label for="full-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left ">キーワード</label>
-      <input type="text" id="full-name" name="full-name" class="w-full  bg-white rounded border  border-gray-300 focus:border-blue-500  focus:ring-blue-500 text-base outline-none  py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      <label for="full-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left" >キーワード</label>
+      <input type="text" id="full-name" name="search" v-model="search" class="w-full  bg-white rounded border  border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-base outline-none  py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" >
     </div>
     <div class="relative flex-grow w-2/3">
       <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 text-left">シリーズ</label>
-      <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 e dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option selected>指定なし</option>
-        <option value="{{ $page.props.auth.user.name }}" class="">サンブレイク</option>
-        <option value="2" class="">ライズ</option>
-        <option value="3">アイスボーン</option>
-        <option value="4">ワールド</option>
-        <option value="5">ストーリーズ</option>
-        <option value="6">ダブルクロス</option>
-        <option value="7">クロス</option>
-        <option value="8">4G</option>
-        <option value="9">4</option>
-        <option value="10">ポータブル 3nd</option>
-        <option value="11">G (wii版)</option>
-        <option value="12">3 （トライ）</option>
-        <option value="13">ポータブル 2nd</option>
-        <option value="14">2 (ドス)</option>
-        <option value="15">G</option>
-        <option value="16">初代</option>
-        <option value="17">その他</option>
+      <select id="countries"  v-model="searchseries" name="searchseries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 e dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="" selected>指定なし</option>
+        <option value="サンブレイク">サンブレイク</option>
+        <option value="ライズ">ライズ</option>
+        <option value="アイスボーン">アイスボーン</option>
+        <option value="ワールド">ワールド</option>
+        <option value="ストーリーズ">ストーリーズ</option>
+        <option value="ダブルクロス">ダブルクロス</option>
+        <option value="クロス">クロス</option>
+        <option value="MH4G">MH4G</option>
+        <option value="MH4">MH4</option>
+        <option value="ポータブル 3nd">ポータブル 3nd</option>
+        <option value="G (wii版">G (wii版)</option>
+        <option value="MH3 （トライ">MH3 （トライ）</option>
+        <option value="ポータブル 2nd">ポータブル 2nd</option>
+        <option value="MH2 (ドス)">MH2 (ドス)</option>
+        <option value="MHG">MHG</option>
+        <option value="初代">初代</option>
+        <option value="その他">その他</option>
       </select>
     </div>
 
     <div class="relative flex-grow w-2/3">
       <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 text-left">ハンターの性別</label>
-      <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      <option selected>指定なし</option>
-      <option value="US">男性</option>
-      <option value="CA">女性</option>
+      <select id="countries" v-model="searchgender" name="searchgender" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option value="" selected>指定なし</option>
+      <option value="1">男性</option>
+      <option value="2">女性</option>
       </select>
     </div>
 </div>
-  <button class="flex mx-auto mt-16 text-white bg-black border-0 py-2 px-16 focus:outline-none hover:bg-indigo-600 rounded text-lg ">検索</button>
+
+<div class="flex justify-center">
+  <button class="flex mx-auto mt-12 text-white bg-black border-0 py-2 px-16 focus:outline-none"
+   @click="resultposts">検索</button>
+</div>
+
+    
 </div>
 </div>
 </div>
@@ -85,183 +111,26 @@ defineProps({
 
 
 
-  <section class="text-gray-600 body-font" >
-    <div class="container px-5 pb-4 mx-auto">
-
-      <ul class="flex justify-center flex-row text-lg font-medium text-center text-gray-500 dark:text-gray-400">
-        <li class="mr-2">
-            <a href="#" class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">新しい順</a>
-        </li>
-        <li class="mr-2">
-            <a href="#" class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">古い順</a>
-        </li>
-      </ul>
-    </div>
-  </section>
-  <MicroModal />
   <section class="text-gray-600 body-font bg-slate-500" style="background-color: #f2f2f2;">
     <div class="container  mx-auto">
-      <div class="flex flex-col">
-        <br>
-      </div>
+      <br>
       <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-        <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-          <div class="rounded-lg h-96 overflow-hidden" >
-            
-            <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505" >
-          </div>
-        </div>
-        <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
+        <div v-for="modal in posts.data" :key="modal.id" class="p-2 md:w-1/3 sm:mb-0 mb-4">
           <div class="rounded-lg h-96 overflow-hidden">
-            <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-          </div>
-        </div>
-        <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-          <div class="rounded-lg h-96 overflow-hidden">
-            <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-          </div>
-        </div>
-        
-
-
-        <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505g">
-            </div>
-          </div>
-          <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-          </div>
-          <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-        </div>
-
-
-        <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-          </div>
-          <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-          </div>
-          <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-        </div>
-
-
-        <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-          </div>
-          <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-          </div>
-          <div class="p-2 md:w-1/3 sm:mb-0 mb-4">
-            <div class="rounded-lg h-96 overflow-hidden">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1205x505">
-            </div>
-        </div>
-        <div class="p-2 lg:w-full">
-          <div class="h-full bg-gray-100 bg-opacity-75 px-8 pt-8 pb-12 rounded-lg overflow-hidden text-center relative">
-            <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3 text-center">↓ もっと見る</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <br>
-  <br>
-  <section class="text-gray-600 body-font" v-for="post in posts">
-    <div class="container px-5 py-24 mx-auto">
-      <div class="flex flex-col text-center w-full mb-20">
-        <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">ROOF PARTY POLAROID</h2>
-        <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">Master Cleanse Reliac Heirloom</h1>
-      </div>
-      <div class="flex flex-wrap -m-4">
-        <div class="p-4 md:w-1/3">
-          <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-            <div class="flex items-center mb-3">
-              <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
-              </div>
-              <h2 class="text-gray-900 text-lg title-font font-medium">{{ post.title }}</h2>
-            </div>
-            <div class="flex-grow">
-              <p class="leading-relaxed text-base">
-                頭：{{ post.head }}<br>胴: {{ post.shoulder }}<br>腕：{{ post.arm }}<br>腰：{{ post.waist }}<br>足：{{ post.leg }}
-                <br><span v-if="post.gender === 1">性別：男性</span><span v-if="post.gender === 2">性別：女性</span>
-                <br><span v-if="post.contact !== null" v-html="nl2br(post.contact)"></span>
-              </p>
-                <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-                </a>
-            </div>
+            <Link class="text-blue-400" :href="route('mh.show', {mh: modal.id })">
+              <image3way />
+            </Link>
           </div> 
         </div>
-        <div class="p-4 md:w-1/3">
-          <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-            <div class="flex items-center mb-3">
-              <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-              </div>
-              <h2 class="text-gray-900 text-lg title-font font-medium">ee</h2>
-            </div>
-            <div class="flex-grow">
-              <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-              <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="p-4 md:w-1/3">
-          <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-            <div class="flex items-center mb-3">
-              <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                  <circle cx="6" cy="6" r="3"></circle>
-                  <circle cx="6" cy="18" r="3"></circle>
-                  <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-                </svg>
-              </div>
-              <h2 class="text-gray-900 text-lg title-font font-medium">Neptune</h2>
-            </div>
-            <div class="flex-grow">
-              <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-              <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                  <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> 
     </div>
   </section>
 
-  <footer class="text-gray-600 body-font">
+  <div class="mt-16">
+    <Pagination class="mt-6" :links="posts.links"></Pagination>
+  </div>
+
+  <footer class="text-gray-600 body-font mt-12">
     <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
       <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">

@@ -14,6 +14,7 @@ const form = reactive({
     memo: props.item.memo,
     price: props.item.price,
     is_selling: props.item.is_sellig,
+    tester: 1,
 })
 
 
@@ -37,7 +38,7 @@ const updateItem = id => {
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-gray-900">
             <section class="text-gray-600 body-font relative">
-            <form @submit.prevent="updateItem(form.id)">
+            <form @submit.prevent="updateItem(form.tester)">
               <div class="container px-5 py-8 mx-auto">
                 <div class="lg:w-1/2 md:w-2/3 mx-auto">
                   <div class="flex flex-wrap -m-2">

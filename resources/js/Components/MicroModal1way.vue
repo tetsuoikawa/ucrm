@@ -6,6 +6,8 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
+defineProps({ links: Array })
+
 const isShow = ref(false)
 const toggleStatus = () => { isShow.value = !isShow.value}
 </script>

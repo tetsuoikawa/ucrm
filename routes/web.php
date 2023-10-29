@@ -1,8 +1,12 @@
 <?php
 use App\Http\Controllers\InertiaTestController;
 use App\Http\Controllers\MhController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -12,19 +16,39 @@ use Inertia\Inertia;
 Route::resource('items', ItemController::class)
 ->middleware(['auth', 'verified']);
 
+Route::resource('customers', CustomerController::class)
+->middleware(['auth', 'verified']);
 
 
+
+Route::put('/comments/update', [CommentController::class, 'update'])->name('comments.update');
+Route::put('/comments/destroy', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+Route::put('/likes/store', [LikeController::class, 'store'])->name('likes.store2');
+Route::put('/likes/destroy', [LikeController::class, 'destroy'])->name('likes.destroy');
+
+Route::get('/follow/store', [FollowController::class, 'store'])->name('follow.store');
+Route::put('/follow/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
+
+Route::get('/mh/createuser', [MhController::class, 'createuser'])->name('mh.createuser');
+Route::get('mh/mypage/like', [MhController::class, 'like'])->name('mh.mypage.like');
+Route::get('mh/mypage/comment', [MhController::class, 'comment'])->name('mh.mypage.comment');
 Route::get('/mh/index', [MhController::class, 'index'])->name('mh.index');
+Route::get('/mh/search', [MhController::class, 'search'])->name('mh.search');
 Route::get('/mh/create', [MhController::class, 'create'])->name('mh.create');
 Route::get('/mh/rank', [MhController::class, 'rank'])->name('mh.rank');
 Route::get('/mh/mypage', [MhController::class, 'mypage'])->name('mh.mypage');
-Route::get('/mh/edit', [MhController::class, 'edit'])->name('mh.edit');
+Route::get('/mh/mypage/{mh}', [MhController::class, 'otherpage'])->name('mh.otherpage');
+//Route::get('/mh/edit', [MhController::class, 'edit'])->name('mh.edit');
 Route::post('/mh', [MhController::class, 'store'])->name('mh.store');
 Route::get('/mh/modal', [MhController::class, 'modalsample'])->name('mh.modalsample');
-Route::put('/mh/{mh}', [MhController::class, 'update'])->name('mh.update');
+Route::post('/mh/{mh}', [MhController::class, 'update'])->name('mh.update');
+Route::put('/mh/{mh}', [MhController::class, 'updateuser'])->name('mh.update2');
 Route::get('/mh/{mh}', [MhController::class, 'show'])->name('mh.show');
-Route::delete('/mh/{mh}', [MhController::class, 'destory'])->name('mh.destory');
+//Route::delete('/mh/{mh}', [MhController::class, 'destory'])->name('mh.destory');
 Route::get('/mh/{mh}/edit', [MhController::class, 'edit'])->name('mh.edit');
+Route::delete('/mh/destroy', [MhController::class, 'destroy'])->name('mh.destroy');
+
 
 /*
 |--------------------------------------------------------------------------

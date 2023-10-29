@@ -17,20 +17,20 @@ return new class extends Migration
             
             $table->bigIncrements('id');
             $table->string('title', 30);
-            $table->string('username', 30)->nullable();
-            $table->integer('series');
+            $table->integer('userid');
+            $table->string('series');
             $table->boolean('gender')->unsigned();
-            $table->string('contact', 200);
-            $table->unsignedBigInteger('sunbreak_id');
-            $table->unsignedBigInteger('user_id');
-            $table->text('comment');
+            $table->string('contact', 200)->nullable();//後で消しといて;
+            $table->unsignedBigInteger('sunbreak_id')->nullable();//後で消しといて;
+            $table->unsignedBigInteger('user_id')->nullable();//後で消しといて;
+            $table->text('comment')->nullable();//後で消しといて;;
             $table->string('head', 30);
             $table->string('shoulder', 30);
             $table->string('arm', 30);
             $table->string('waist', 30);
             $table->string('leg', 30);
-            $table->string('photo', 200);
-            $table->string('photo2', 200);
+            $table->string('photo', 200)->nullable();//後で消しといて;
+            $table->string('photo2', 200)->nullable();//後で消しといて;
             $table->string('photo3', 200)->nullable();
             $table->string('photo4', 200)->nullable();
             $table->string('photo5', 200)->nullable();

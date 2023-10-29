@@ -1,10 +1,14 @@
 <script setup>
 import MhLayout from '@/Layouts/MhLayout.vue';
+
+const props = defineProps({
+  username: Object,
+})
 </script>
 
 <template>
 <Head title="Mypage" />
-<MhLayout></MhLayout>
+<MhLayout :username="props.username"></MhLayout>
 
 
 

@@ -12,7 +12,7 @@ class post extends Model
     protected $fillable = [
         'id',
         'title',
-        'username',
+        'userid',
         'gender',
         'contact',
         'series',
@@ -28,4 +28,47 @@ class post extends Model
         'photo5',
         'photo6',
     ];
+
+    
+    public function scopesearchposts($query, $keyword = null, $gender = null, $series = null)
+    {
+        if(empty($series) and empty($keyword) and empty($gender)){
+            return $query;
+        }
+        //キーワードだけの場合
+        if(!empty($keyword) and empty($gender) and empty($series)){
+            return $query->where('title', 'like', '%' . $keyword . '%' );
+        }
+        //性別だけの場合
+        if(!empty($gender) and empty($keyword) and empty($series)){        
+            return $query->where('gender', 'like', $gender);
+        }
+        
+        //シリーズだけの場合
+        if(!empty($series) and empty($keyword) and empty($gender)){
+            return $query->where('series', 'like', $series);
+        }
+        //シリーズ＋キーワードの場合
+        if(!empty($series)  and !empty($keyword) and empty($gender)){
+            return $query->where('series', 'like', $series)
+                         ->where('title', 'like', '%' . $keyword . '%' );
+        }
+        //シリーズ＋性別の場合
+        if(!empty($series) and empty($keyword) and !empty($gender)){
+            return $query->where('series', 'like', $series)
+                         ->where('gender', 'like', $gender);
+        }
+        //キーワード＋性別の場合
+        if(empty($series) and !empty($keyword) and !empty($gender)){
+            return $query->where('gender', 'like', $gender)
+                         ->where('title', 'like', '%' . $keyword . '%' );
+        }
+        //キーワード＋性別+シリーズの場合
+        if(!empty($series) and !empty($keyword) and !empty($gender)){
+            return $query->where('title', 'like', '%' . $keyword . '%' )
+                         ->where('series', 'like', $series)
+                         ->where('gender', 'like', $gender);
+        }
+    }
 }
+

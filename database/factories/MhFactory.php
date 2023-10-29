@@ -17,7 +17,7 @@ class MhFactory extends Factory
     public function definition()
     {
         return [
-            //
+            
         ];
     }
 }

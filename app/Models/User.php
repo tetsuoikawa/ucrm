@@ -16,12 +16,34 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
+     * 
      */
+
+     use HasFactory;
+
+    // モデルに関連付けるテーブル
+    protected $table = 'users';
+
+    // テーブルに関連付ける主キー
+    protected $primaryKey = 'point';
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'imageicon',
+        'imageheader',
+        'content',
+        'twitter',
+        'facebook',
+        'instagram',
+        'point',
     ];
+
+    public function scopeupoint($a)
+    {
+        dd($a);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

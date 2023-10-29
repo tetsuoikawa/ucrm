@@ -23,7 +23,7 @@ const form = reactive({
 })
 
 const updateProps = id => {
-    Inertia.put(route('mh.update', { mh: id }) , form)
+    Inertia.post(route('mh.update', { mh: id }) , form)
 }
 </script>
 
@@ -99,15 +99,7 @@ const updateProps = id => {
           type="file"
           >
 
-          <label for="full-name" class="block mb-4 text-xl font-medium text-gray-900 dark:text-gray-100 text-left"><span style="color:red">*</span> ユーザー名 (仮)</label>
-        <div>
-          <label class="sr-only" for="name">ユーザー名</label>
-          <input
-            class="w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-            type="text"
-            name="username" 
-            v-model="form.username"> 
-        </div>
+
           
 
         <label for="full-name" class="mt-8 block mb-4 text-xl font-medium text-gray-900 dark:text-gray-100 text-left"><span style="color:red">*</span> 作品名 (必須)</label>
@@ -123,32 +115,30 @@ const updateProps = id => {
         <label for="HeadlineAct" class=" pt-8 block text-xl font-medium text-gray-900 text-left mb-4">
           <span style="color:red">*</span> シリーズ選択 (必須) 
             </label>
-
-
-
+            
             <select
               name="series"
               id="HeadlineAct"
               v-model="form.series"
               class="w-full rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
             >
-              <option value="1" class="">サンブレイク</option>
-              <option value="2" class="">ライズ</option>
-              <option value="3">アイスボーン</option>
-              <option value="4">ワールド</option>
-              <option value="5">ストーリーズ</option>
-              <option value="6">ダブルクロス</option>
-              <option value="7">クロス</option>
-              <option value="8">4G</option>
-              <option value="9">4</option>
-              <option value="10">ポータブル 3nd</option>
-              <option value="11">G (wii版)</option>
-              <option value="12">3 （トライ）</option>
-              <option value="13">ポータブル 2nd</option>
-              <option value="14">2 (ドス)</option>
-              <option value="15">G</option>
-              <option value="16">初代</option>
-              <option value="17">その他</option>
+            <option value="サンブレイク" class="">サンブレイク</option>
+              <option value="ライズ" class="">ライズ</option>
+              <option value="アイスボーン">アイスボーン</option>
+              <option value="ワールド">ワールド</option>
+              <option value="ストーリーズ">ストーリーズ</option>
+              <option value="ダブルクロス">ダブルクロス</option>
+              <option value="クロス">クロス</option>
+              <option value="MH4G">MH4G</option>
+              <option value="MH4">MH4</option>
+              <option value="ポータブル 3nd">ポータブル 3nd</option>
+              <option value="MHG (wii版)">MHG (wii版)</option>
+              <option value="MH3 （トライ">MH3 （トライ）</option>
+              <option value="ポータブル 2nd">ポータブル 2nd</option>
+              <option value="MH2 (ドス)">MH2 (ドス)</option>
+              <option value="MHG">MHG</option>
+              <option value="初代">初代</option>
+              <option value="その他">その他</option>
             </select>
 
             <label for="HeadlineAct" class=" pt-12 block mb-4 text-xl font-medium text-gray-900 dark:text-gray-400 text-left">
@@ -231,7 +221,7 @@ const updateProps = id => {
             <button
               type="submit"
               class=" mb-16 inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto" title="aaa">
-              投稿する
+              更新する
             </button>
           </div>
         </div>

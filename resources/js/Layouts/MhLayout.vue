@@ -6,7 +6,16 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 
+const props = defineProps({
+  username: Object,
+})
+
+
+onMounted(() => {
+  console.log(props.username)
+})
 const showingNavigationDropdown = ref(false);
 </script>
 
@@ -37,9 +46,11 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('mh.rank')" :active="route().current('mh.rank')">
                                     ランキング
                                 </NavLink>
-                                <NavLink :href="route('mh.mypage')" :active="route().current('mh.mypage')">
-                                    マイページ
-                                </NavLink>
+
+                                  <NavLink v-if="props.username !== '名無しのユーザー'" :href="route('mh.mypage')" :active="route().current('mh.mypage')">
+                                      マイページ
+                                  </NavLink>
+                                
                             </div>
                         </div>
 
@@ -53,31 +64,45 @@ const showingNavigationDropdown = ref(false);
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {{ $page.props.auth.user.name }}
-
-                                                <svg
-                                                    class="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
+                                                <!-- {{ $page.props.auth.user.name }} -->
+                                                <div v-if="props.username == '名無しのユーザー'">
+                                                    <div class="inline-flex">
+                                                      <button class="  text-gray-800 font-bold py-2 px-4 rounded-l">
+                                                        <NavLink :href="route('login')" :active="route().current('login')">ログイン
+                                                        </NavLink>
+                                                      </button>
+                                                      <button class="  text-gray-800 font-bold py-2 px-4 rounded-r">
+                                                        <NavLink :href="route('register')" :active="route().current('register')">ユーザー登録
+                                                        </NavLink>
+                                                      </button>
+                                                    </div>                                           
+                                                </div>
+                                                <div v-if="props.username !== '名無しのユーザー'">
+                                                    {{ props.username }} 
+                                                </div>
                                             </button>
                                         </span>
                                     </template>
 
-                                    <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
-                                        </DropdownLink>
-                                    </template>
+                                    
+                                    
+                                        <template #content>
+                                        <div v-if="props.username !== '名無しのユーザー'">
+                                          <DropdownLink :href="route('mh.mypage')" class="mt-2"> マイページ </DropdownLink>
+                                          <DropdownLink :href="route('mh.mypage.like')" method="post" as="button" class="mb-2">いいねした記事</DropdownLink>
+                                          <hr>
+                                          <DropdownLink :href="route('mh.create')" method="get" as="button" class="my-2">新規投稿</DropdownLink>
+                                          <hr>
+                                          <DropdownLink :href="route('mh.createuser')"  as="button" class="mt-2">ユーザー設定</DropdownLink>
+                                          <DropdownLink :href="route('logout')" method="post" as="button">ログアウト</DropdownLink>
+                                        </div>
+                                      </template>
+                                    
+                                      
+
+                   
                                 </Dropdown>
+                                
                             </div>
                         </div>
 
@@ -132,22 +157,24 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                     </div>
 
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
-                        </div>
-
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
+                      <!-- Responsive Settings Options -->
+                      <div class="pt-4 pb-1 border-t border-gray-200">
+                          <div class="px-4">
+                              <div class="font-medium text-base text-gray-800">
+                                <!-- {{ $page.props.auth.user.name }} -->
+                                <div v-if="props.username == '名無しのユーザー'">
+                                    <p>名無しのユーザー</p>
+                                </div>
+                              </div>
+                              <div class="font-medium text-sm text-gray-500"><!-- {{ $page.props.auth.user.email }} --></div>
+                          </div>
+                          <div class="mt-3 space-y-1">
+                              <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                              <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                                  Log Out
+                              </ResponsiveNavLink>
+                          </div>
+                      </div>
                 </div>
             </nav>
 
